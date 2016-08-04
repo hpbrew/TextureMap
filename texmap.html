@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+    canvas { background: blue; }
+    #buttons{
+    	margin:20px;
+    	}
+</style>
+<title>CS435, Project#5, Hampton Brewer</title>
+<h2>CS435, Project#5, Hampton Brewer</h2>
+</head>
+<div id='buttons'>
+	<button id = "btnOnOff">On/Off</button>
+	<button id = "btnPauseResume">Pause/Resume</button>
+	<button id = "btnPrev">Prev</button>
+	<button id = "btnNext">Next</button>
+</div>
+<br>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+attribute  vec4 vPosition;
+attribute  vec4 vColor;
+attribute  vec2 vTexCoord;
+
+varying vec4 fColor;
+varying vec2 fTexCoord;
+
+uniform vec3 theta;
+
+void main() 
+{
+    // Compute the sines and cosines of theta for each of
+    //   the three axes in one computation.
+    vec3 angles = radians( theta );
+    vec3 c = cos( angles );
+    vec3 s = sin( angles );
+
+    // Remeber: thse matrices are column-major
+    mat4 rx = mat4( 1.0,  0.0,  0.0, 0.0,
+		    0.0,  c.x,  s.x, 0.0,
+		    0.0, -s.x,  c.x, 0.0,
+		    0.0,  0.0,  0.0, 1.0 );
+
+    mat4 ry = mat4( c.y, 0.0, -s.y, 0.0,
+		    0.0, 1.0,  0.0, 0.0,
+		    s.y, 0.0,  c.y, 0.0,
+		    0.0, 0.0,  0.0, 1.0 );
+
+    mat4 rz = mat4( c.z, -s.z, 0.0, 0.0,
+		    s.z,  c.z, 0.0, 0.0,
+		    0.0,  0.0, 1.0, 0.0,
+		    0.0,  0.0, 0.0, 1.0 );
+                
+    fColor = vColor;
+    fTexCoord = vTexCoord;
+    gl_Position = rz * ry * rx * vPosition;
+} 
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+
+varying vec4 fColor;
+varying  vec2 fTexCoord;
+
+uniform sampler2D texture;
+
+void
+main()
+{
+    gl_FragColor = fColor * texture2D( texture, fTexCoord );
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="texmap.js"></script>
+
+
+<body>
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+<img id = "texImage" src = "carpet.gif" hidden></img>
+<img id = "brickImage" src = "bricks.gif" hidden></img>
+<img id = "woodImage" src = "wood.gif" hidden></img>
+<img id = "tvOff" src = "tvOff.gif" hidden></img>
+<img id = "tv0" src = "tv_000.gif" hidden></img>
+<img id = "tv1" src = "tv_001.gif" hidden></img>
+<img id = "tv2" src = "tv_002.gif" hidden></img>
+<img id = "tv3" src = "tv_003.gif" hidden></img>
+<img id = "tv4" src = "tv_004.gif" hidden></img>
+<img id = "tv5" src = "tv_005.gif" hidden></img>
+<img id = "tv6" src = "tv_006.gif" hidden></img>
+<img id = "tv7" src = "tv_007.gif" hidden></img>
+<img id = "tv8" src = "tv_008.gif" hidden></img>
+<img id = "tv9" src = "tv_009.gif" hidden></img>
+<img id = "tv10" src = "tv_010.gif" hidden></img>
+<img id = "tv11" src = "tv_011.gif" hidden></img>
+<img id = "tv12" src = "tv_012.gif" hidden></img>
+<img id = "tv13" src = "tv_013.gif" hidden></img>
+<img id = "tv14" src = "tv_014.gif" hidden></img>
+<img id = "tv15" src = "tv_015.gif" hidden></img>
+<img id = "tv16" src = "tv_016.gif" hidden></img>
+<img id = "tv17" src = "tv_017.gif" hidden></img>
+<img id = "tv18" src = "tv_018.gif" hidden></img>
+<img id = "tv19" src = "tv_019.gif" hidden></img>
+<img id = "tv20" src = "tv_020.gif" hidden></img>
+<img id = "tv21" src = "tv_021.gif" hidden></img>
+<img id = "tv22" src = "tv_022.gif" hidden></img>
+<img id = "tv23" src = "tv_023.gif" hidden></img>
+<img id = "tv24" src = "tv_024.gif" hidden></img>
+<img id = "tv25" src = "tv_025.gif" hidden></img>
+<img id = "tv26" src = "tv_026.gif" hidden></img>
+<img id = "tv27" src = "tv_027.gif" hidden></img>
+<img id = "tv28" src = "tv_028.gif" hidden></img>
+<img id = "tv29" src = "tv_029.gif" hidden></img>
+<img id = "tv30" src = "tv_030.gif" hidden></img>
+<img id = "tv31" src = "tv_031.gif" hidden></img>
+<img id = "tv32" src = "tv_032.gif" hidden></img>
+<img id = "tv33" src = "tv_033.gif" hidden></img>
+<img id = "tv34" src = "tv_034.gif" hidden></img>
+<img id = "tv35" src = "tv_035.gif" hidden></img>
+<img id = "tv36" src = "tv_036.gif" hidden></img>
+<img id = "tv37" src = "tv_037.gif" hidden></img>
+<img id = "tv38" src = "tv_038.gif" hidden></img>
+<img id = "tv39" src = "tv_039.gif" hidden></img>
+<img id = "tv40" src = "tv_040.gif" hidden></img>
+<img id = "tv41" src = "tv_041.gif" hidden></img>
+<img id = "tv42" src = "tv_042.gif" hidden></img>
+<img id = "tv43" src = "tv_043.gif" hidden></img>
+<img id = "tv44" src = "tv_044.gif" hidden></img>
+<img id = "tv45" src = "tv_045.gif" hidden></img>
+<img id = "tv46" src = "tv_046.gif" hidden></img>
+<img id = "tv47" src = "tv_047.gif" hidden></img>
+<img id = "tv48" src = "tv_048.gif" hidden></img>
+<img id = "tv49" src = "tv_049.gif" hidden></img>
+<img id = "tv50" src = "tv_050.gif" hidden></img>
+<img id = "tv51" src = "tv_051.gif" hidden></img>
+</body>
+</html>
